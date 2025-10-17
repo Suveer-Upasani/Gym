@@ -382,4 +382,9 @@ def reset_session():
 if __name__ == '__main__':
     # Create data directory if it doesn't exist
     os.makedirs('data', exist_ok=True)
-    app.run(host='0.0.0.0', port=5005, debug=False)
+    
+    # Get port from environment variable or use default
+    port = int(os.environ.get('PORT', 5005))
+    
+    # Run the app
+    app.run(host='0.0.0.0', port=port, debug=False)
