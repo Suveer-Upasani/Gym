@@ -20,12 +20,11 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Expose port (Railway provides $PORT)
-EXPOSE $PORT
+EXPOSE 5005
 
-# Set Flask environment variables
+# Set environment variables
 ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
 ENV FLASK_ENV=production
 
-# Run Flask using dynamic port
-CMD ["sh", "-c", "flask run --host=0.0.0.0 --port=${PORT:-5005}"]
+# Use Gunicorn for production and dynamic port
+CMD ["sh", "-c", "gunicorn -w 4 -b 0.0.0.0:${PORT:-5005} app:app"]
