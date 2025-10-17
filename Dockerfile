@@ -19,12 +19,12 @@ RUN pip install -r requirements.txt
 # Copy the rest of the app
 COPY . .
 
-# Expose port (Railway provides $PORT)
+# Expose a fixed port (for Docker; app uses dynamic $PORT)
 EXPOSE 5005
 
 # Set environment variables
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
 
-# Use Gunicorn for production and dynamic port
-CMD ["sh", "-c", "gunicorn -w 4 -b 0.0.0.0:${PORT:-5005} app:app"]
+# Gunicorn directly, Railway injects $PORT
+ENTRYPOINT ["gunicorn", "-w", "4", "-b", "0.0.0.0:${PORT:-5005}", "app:app"]
