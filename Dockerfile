@@ -19,6 +19,6 @@ COPY . .
 
 RUN mkdir -p data static templates
 
-EXPOSE 5005
+EXPOSE 8080
 
 CMD ["python", "app.py"]
