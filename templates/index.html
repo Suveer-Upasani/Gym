@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deadlift Form Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚡ DEADLIFT FORM ANALYZER ⚡</h1>
+            <p class="subtitle">Real-time Pose Analysis & Form Feedback</p>
+        </div>
+
+        <div class="main-content">
+            <div class="video-section">
+                <div class="video-container">
+                    <img id="videoFeed" src="{{ url_for('video_feed') }}" alt="Live Analysis">
+                    <div class="video-overlay">
+                        <div class="status-indicator" id="statusIndicator">● LIVE</div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button id="startBtn" class="btn btn-primary">START ANALYSIS</button>
+                    <button id="resetBtn" class="btn btn-secondary">RESET SESSION</button>
+                </div>
+            </div>
+
+            <div class="analytics-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="repCount">0</div>
+                        <div class="stat-label">REPS COMPLETED</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="formQuality">0%</div>
+                        <div class="stat-label">FORM QUALITY</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="currentState">STANDING</div>
+                        <div class="stat-label">CURRENT STATE</div>
+                    </div>
+                </div>
+
+                <div class="angles-section">
+                    <h3>JOINT ANGLES</h3>
+                    <div class="angles-grid">
+                        <div class="angle-item">
+                            <span class="angle-label">Torso:</span>
+                            <span class="angle-value" id="torsoAngle">0°</span>
+                        </div>
+                        <div class="angle-item">
+                            <span class="angle-label">Hip:</span>
+                            <span class="angle-value" id="hipAngle">0°</span>
+                        </div>
+                        <div class="angle-item">
+                            <span class="angle-label">Knee:</span>
+                            <span class="angle-value" id="kneeAngle">0°</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feedback-section">
+                    <h3>FORM FEEDBACK</h3>
+                    <div id="feedbackList" class="feedback-list">
+                        <div class="feedback-item">Waiting for analysis...</div>
+                    </div>
+                </div>
+
+                <div class="history-section">
+                    <h3>REP HISTORY</h3>
+                    <div id="repHistory" class="history-list">
+                        <div class="history-item">No reps completed yet</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Powered by MediaPipe & Flask | Real-time Deadlift Analysis</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
