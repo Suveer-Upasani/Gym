@@ -1,23 +1,28 @@
-# Use official Python image (Python 3.11 recommended for mediapipe compatibility)
+# Base image
 FROM python:3.11-slim
 
 # Set working directory
 WORKDIR /app
 
+# Install system dependencies required for OpenCV
+RUN apt-get update && apt-get install -y \
+    libgl1 libglib2.0-0 libsm6 libxrender1 libxext6 ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copy requirements first for caching
 COPY requirements.txt .
 
-# Upgrade pip and install dependencies
+# Upgrade pip and install Python dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # Copy the rest of the app
 COPY . .
 
-# Expose the port (Railway sets $PORT dynamically)
+# Expose port (Railway provides $PORT)
 EXPOSE $PORT
 
-# Set environment variables
+# Set Flask environment variables
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 ENV FLASK_ENV=production
